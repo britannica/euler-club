@@ -1,18 +1,22 @@
-# https://trinket.io/features/python3
-def calculate():
+# onlineGDB.com
+import time
+def calculate(n):
   sum = 0
   x = 3
-  while (x < 1000):
+  while (x < n):
     sum += x
     x+=3
   y = 5
-  while y <= 1000:
+  while y <= n:
     sum += y
     y+=5
-    if y >= 1000: break
+    if y >= n: break
     sum += y
     y+=10
   print (sum)
   return 
 
-calculate()
+start = time.time()
+calculate(1000)
+end = time.time()
+print(end - start)
