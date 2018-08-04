@@ -1,18 +1,18 @@
 def calculate():
-  multiples = set()
+  multiples3 = getMultiplesOf(3, 1000)
+  multiples5 = getMultiplesOf(5, 1000)
   sum = 0
-  getMultiplesOf(3, 1000, multiples)
-  getMultiplesOf(5, 1000, multiples)
-  for val in multiples:
+  for val in multiples3 | multiples5:
     sum += val
   print (sum)
   return 
 
-def getMultiplesOf(val, limit, multiples):
-  x = 0
+def getMultiplesOf(val, limit):
+  multiples = set()
+  x = val
   while x < limit:
     multiples.add(x)
-    x+=val
-  return
+    x += val
+  return multiples
 
 calculate()
