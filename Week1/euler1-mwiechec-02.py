@@ -1,6 +1,7 @@
-def calculate():
-  multiples3 = getMultiplesOf(3, 1000)
-  multiples5 = getMultiplesOf(5, 1000)
+import time
+def calculate(n):
+  multiples3 = getMultiplesOf(3, n)
+  multiples5 = getMultiplesOf(5, n)
   sum = 0
   for val in multiples3 | multiples5:
     sum += val
@@ -15,4 +16,7 @@ def getMultiplesOf(val, limit):
     x += val
   return multiples
 
-calculate()
+start = time.time()
+calculate(1000)
+end = time.time()
+print(end - start)
