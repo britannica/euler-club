@@ -1,7 +1,6 @@
-let sum = 0;
+const sumOfMultiples = (sum, max, validateMultiples) => {
+  for (let i = 0; i < max; i++) { validateMultiples(i) && (sum += i) }
+  return sum;
+};
 
-for (let i = 0; i < 1000; i++) {
-  sum = (i % 3 === 0 || i % 5 === 0) ? sum + i : sum;
-}
-
-console.log(sum);
+console.log(sumOfMultiples(0, 1000, val => val % 3 === 0 || val % 5 === 0 ));
