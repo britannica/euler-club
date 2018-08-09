@@ -1,16 +1,14 @@
 #include <stdio.h>
 int main() {
-    unsigned long sum = 0, t1 = 0, t2 = 1, t3 = 2, i;
-
-    while (t3 < 4000000) {
-        t3 = t1 + t2;
-        if(t3 % 2 == 0) {
-            sum = sum + t3;
+    unsigned long sum = 0, x= 0, y = 1, z = 2;
+    while (z < 4000000) {
+        z = x + y;
+        if(z % 2 == 0) {
+            sum += z;
         }
-        t1 = t2;
-        t2 = t3;
+        x = y;
+        y = z;
     }
-
     printf("%lu\n", sum);
     return 0;
 }
