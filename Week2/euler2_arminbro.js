@@ -1,12 +1,14 @@
 function fibSum(n, i = 2, results = [0, 1]) {
-  if (n < 2) return n;
+  let sum = 0;
+  let currentFib = 0;
 
-  while (results[i - 1] + results[i - 2] <= n) {
-    results.push(results[i - 1] + results[i - 2]);
+  while ((currentFib = results[i - 1] + results[i - 2]) <= n) {
+    results.push(currentFib);
+    (currentFib % 2 === 0) && (sum += currentFib);
     i++;
   }
 
-  return results.reduce((sum, num) => num % 2 === 0 ? sum += num : sum, 0);
+  return sum;
 }
 
 console.log(fibSum(4000000));
