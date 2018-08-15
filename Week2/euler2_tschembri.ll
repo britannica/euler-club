@@ -1,5 +1,5 @@
 ; on any fibonacci sequence, the 3rd one is even
-; the formula to find the next even number from the current even number (f(x)) is:
+; the formula to find the next even number from the current even number (fib( x )) is:
 ; fib( x + 3 ) = ( fib( x ) * 3 ) + ( fib( x - 1 ) * 2 )
 ; where fib( x - 1 ) = fib( x - 1 ) + ( fib( x ) * 2 ) 
 
@@ -13,7 +13,7 @@
 ;     21 = ( 2 * 8 ) + 5
 ;     89 = ( 2 * 34 ) + 21
 
-; I don't know if a famous mathematician found and proved that before. If yes, insert his/her name here: [_____________]
+; Insert here [___________________] the name of the famous mathematician who proved that.
 
 ; can be tested with online LISP interpreter: http://rextester.com/l/common_lisp_online_compiler
 
