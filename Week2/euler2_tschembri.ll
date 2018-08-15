@@ -17,15 +17,16 @@
 
 ; can be tested with online LISP interpreter: http://rextester.com/l/common_lisp_online_compiler
 
-( let ( ( sum 0 ) ( x-1 1 ) ( x 2 ) ( x+3 2 ) ) 
+( let ( ( sum 0 ) ( x-1 1 ) ( x 2 ) ( x+3 2 ) ( i 0 ) ) 
   ( loop while ( < x+3 4000000 )
     do (
         setf  sum ( + sum x+3 ) 
               x+3 ( + ( * x 3 ) ( * x-1 2 ) )
               x-1 ( + ( * x 2 ) x-1 ) 
               x x+3
+                 
          )
-    )
- 
-    ( print sum ) 
+    do ( incf i )
+  )
+  ( format t "Sum is: ~D - in ~D loops" sum i ) 
 ) 
