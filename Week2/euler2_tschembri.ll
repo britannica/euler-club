@@ -13,7 +13,7 @@
 ;     21 = ( 2 * 8 ) + 5
 ;     89 = ( 2 * 34 ) + 21
 
-; I don't know if a famous mathematician found and prove that before. If yes, insert his/her name here: [_____________]
+; I don't know if a famous mathematician found and proved that before. If yes, insert his/her name here: [_____________]
 
 ; can be tested with online LISP interpreter: http://rextester.com/l/common_lisp_online_compiler
 
