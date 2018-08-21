@@ -14,9 +14,12 @@ class Euler3
     Math.sqrt(num_to_factor).floor
   end
 
-  (2..num_to_factor / 2).each { |num|
-    next unless prime?(num)
-    primes.push num if (num_to_factor % num).zero?
+  square_root_rounded_down = round_down_square_root(num_to_factor)
+
+  (2..square_root_rounded_down).each { |num|
+    dividend = num_to_factor / num
+    primes.push num if (num_to_factor % num).zero? and prime?(num)
+    primes.push dividend if (num_to_factor % dividend).zero? and prime?(dividend)
   }
 
   print(primes.last)
