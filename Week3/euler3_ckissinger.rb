@@ -7,7 +7,7 @@ class Euler3
     }
     true
   end
-  num_to_factor = 14
+  num_to_factor = 600_851_475_143
   primes = []
 
   def self.round_down_square_root(num_to_factor)
