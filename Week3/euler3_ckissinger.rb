@@ -7,16 +7,14 @@ class Euler3
     }
     true
   end
-  num_to_factor = 600_851_475_143
+  num_to_factor = 14
   primes = []
 
   def self.round_down_square_root(num_to_factor)
     Math.sqrt(num_to_factor).floor
   end
 
-  square_root_rounded_down = round_down_square_root(num_to_factor)
-
-  (2..square_root_rounded_down).each { |num|
+  (2..num_to_factor / 2).each { |num|
     next unless prime?(num)
     primes.push num if (num_to_factor % num).zero?
   }
