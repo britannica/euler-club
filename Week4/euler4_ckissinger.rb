@@ -25,7 +25,7 @@ def self.palindrome?(num)
 end
 
 largest_palindrome = 0
-(1..999).each do |num|
+(100..999).each do |num|
   (num..999).each do |other_num|
     product = num * other_num
     if palindrome?(product) && product > largest_palindrome
