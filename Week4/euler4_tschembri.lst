@@ -1,0 +1,27 @@
+1  // Palindrome in COMAL
+2  // To test it, download the OpenCOMAL interpreter @http://www.josvisser.nl/opencomal/
+3  // then type: ENTER "euler4_tschembri.lst" to "enter" the program listing, then type RUN
+
+10 FUNC is_pal(n) CLOSED
+20   a$:=STR$(n); b$:=""; l:=LEN(a$)
+30   FOR i:=l DOWNTO 1 DO
+40     b$:+a$(i:i)
+50   ENDFOR i
+60   IF a$=b$ THEN
+70     RETURN TRUE
+80   ELSE
+90     RETURN FALSE
+100   ENDIF
+110 ENDFUNC is_pal
+120
+130 pal:=0; max:=0
+140 FOR i:=999 DOWNTO 100 DO
+150   FOR j:=999 DOWNTO 100 DO
+160     m:=i*j
+170     IF is_pal(m)=TRUE AND m>max THEN
+180       max:=i*j
+190     ENDIF
+200   ENDFOR j
+210 ENDFOR i
+220 PRINT "PALINDROME = ",max
+230 END
