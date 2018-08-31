@@ -1,4 +1,7 @@
 
+from functools import reduce
+import operator
+
 def get_prime_factors(x):
     z = (x // 2) + 1
     for p in range(2,z):
@@ -15,12 +18,19 @@ def get_prime_factors(x):
 
 def get_all_factors(x):
     factors = []                        # array to hold prime factors
-    for x in range(1, x):              # spin through 1 through 20
+    for x in range(1, x):              # spin through 1 through x
         base = factors.copy()           # remember what we have so far
         primes = get_prime_factors(x)   # get the prime factors
 
         # see what additional prime factors we still have not found by subtraction
         additional = [item for item in primes if item not in factors or factors.remove(item)]
+        # equivalent to
+        # additional = []
+        # for item in primes:
+        #     if item not in factors:
+        #         additional.append(item)
+        #     else:
+        #         factors.remove(item)
         factors = base + additional     # create a new list of factors
     return factors
 
@@ -28,7 +38,8 @@ factors = get_all_factors(20)
 print (factors)
 
 # multiply for solution
-product = 1
-for x in factors:
-    product *= x
+#product = 1
+#for x in factors:
+#    product *= x
+product = reduce(operator.mul, factors)
 print (product)
