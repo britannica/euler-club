@@ -29,8 +29,6 @@ factors = {}
 
 for num in range(2,21):
     factorization = get_prime_factors(num)
-    print(num, ": " + " ".join(map(str, factorization)))
-    print(factorization_to_hash(factorization))
     for fac, multiple in factorization_to_hash(factorization).items():
         if factors.get(fac):
             if factors[fac] < multiple:
@@ -39,6 +37,7 @@ for num in range(2,21):
             factors[fac] = multiple
 
 smallest_multiple = 1
+# this does a polynomial expansion...ie. 12 == {2: 2, 3: 1} == (2 * 2) * (3) == 2 power of 2 times 3 power 1
 for fac, multiple in factors.items():
     smallest_multiple *= fac ** multiple
 print(factors)
