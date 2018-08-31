@@ -1,5 +1,3 @@
-from functools import reduce
-
 # function borrowed from Week3/euler3_mwiechec.py
 # would have used my own...but alas, i did it in C
 def get_prime_factors(x):
@@ -36,9 +34,14 @@ for num in range(2,21):
         else:
             factors[fac] = multiple
 
+print(factors)
+
 smallest_multiple = 1
-# this does a polynomial expansion...ie. 12 == {2: 2, 3: 1} == (2 * 2) * (3) == 2 power of 2 times 3 power 1
+
+# and now we do a polynomial expansion
+# ie. 12 == {2: 2, 3: 1} == (2 * 2) * (3) == 2 power of 2 times 3 power 1
+
 for fac, multiple in factors.items():
     smallest_multiple *= fac ** multiple
-print(factors)
+
 print("smallest_multiple is: ", smallest_multiple)
