@@ -17,3 +17,5 @@ def differ(limit):
     print(sum, square, diff)
     
 differ(100)
+
+
