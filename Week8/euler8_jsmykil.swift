@@ -35,8 +35,9 @@ func 🦆(index:Int, length:Int) -> Int {
 
 var highestValue:Int = 0
 var theIndex:Int = 0
+var cachedCount:Int = 🐶.count
 
-for i in 0...(🐶.count - 13) {
+for i in 0...(cachedCount - 13) {
     let newValue:Int = 🤗(index:i, length:12)
     if (newValue > highestValue) {
         highestValue = newValue
