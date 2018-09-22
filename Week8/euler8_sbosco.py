@@ -7,7 +7,6 @@ def prod_digits(digits):
     prod = 1
     for x in digits:
         prod *= int(x) 
-#    return sum(int(x) for x in digits)
     return prod
 
 
@@ -34,18 +33,23 @@ digits_1000 = (
     '71636269561882670428252483600823257530420752963450'
 )
  
-greatest_prod = 0   
-greatest_prod_trial = 0   
-greatest_prod_index = 0   
-for n in range(0, 997):
-    trial = digits_1000[n:n+13]
-    product = prod_digits(trial)
-    if product > 0:
-        print(n, trial, product)
-    if product > greatest_prod:
-        greatest_prod = product
-        greatest_prod_trial = trial   
-        greatest_prod_index = n   
-        
-print (greatest_prod_index, greatest_prod_trial, greatest_prod)
+
+def find_prod(length):
+    greatest_prod = 0   
+    greatest_prod_trial = 0   
+    greatest_prod_index = 0   
+    for n in range(0, 1000 - length):
+        trial = digits_1000[n:n+length]
+        product = prod_digits(trial)
+#        if product > 0:
+#            print(n, trial, product)
+        if product > greatest_prod:
+            greatest_prod = product
+            greatest_prod_trial = trial   
+            greatest_prod_index = n   
+    return (greatest_prod_index, greatest_prod_trial, greatest_prod)
+
+for length in range(1,100): 
+    (index, trial, prod) = find_prod(length)
+    print (length, index, trial, prod)
 
