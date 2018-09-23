@@ -2,7 +2,7 @@ let 🐙:String = "7316717653133062491922511967442657474235534919493496983520312
 let 🐶 = Array(🐙)
 
 // Turn the array of strings into an array of Int
-let 💂‍:Array = 🐶.map { Int(String($0))! } // Force the Int to be non optional
+let 💂‍:Array = 🐶.map { Int(String($0))! } // Transform the Charachter to a String to an Int, force the Int to be non optional
 
 func 🤗(👆:Int, 📏:Int) -> Int {
     for 👁 in 0...📏 {
