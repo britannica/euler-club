@@ -4,46 +4,34 @@ let 🐶 = Array(🐙)
 // Turn the array of strings into an array of Int
 let 💂‍:Array = 🐶.map { Int(String($0))! } // Force the Int to be non optional
 
-func 🤗(index:Int, length:Int) -> Int {
-    for i in 0...length {
-        if (💂‍[index + i] == 0 || 💂‍[index + i] == 1) {
+func 🤗(👆:Int, 📏:Int) -> Int {
+    for 👁 in 0...📏 {
+        if (💂‍[👆 + 👁] == 0) {
             return 0
         }
     }
 
-    // Addition is slightly more performant than multiplication
-    return(🦆(index:index, length:12))
+    return 🐇(index:👆, 📏:12)
 }
 
 // Multiply like rabbits
-func 🐇(index:Int, length:Int) -> Int {
-    var ret = 1 // don't start with 0 or all your answers will be 0
-    for i in 0...length {
-        ret *= 💂‍[index + i]
+func 🐇(index:Int, 📏:Int) -> Int {
+    var 📦:Int = 1 // don't start with 0 or all your answers will be 0
+    for 👁 in 0...📏 {
+        📦 *= 💂‍[index + 👁]
     }
-    return ret
+
+    return 📦
 }
 
-// Count ducks in a row
-func 🦆(index:Int, length:Int) -> Int {
-    var ret = 0
-    for i in 0...length {
-        ret += 💂‍[index + i]
-    }
-    return ret
-}
+var 🚀:Int = 0
+var 💵:Int = 🐶.count
 
-var highestValue:Int = 0
-var theIndex:Int = 0
-var cachedCount:Int = 🐶.count
-
-for i in 0...(cachedCount - 13) {
-    let newValue:Int = 🤗(index:i, length:12)
-    if (newValue > highestValue) {
-        highestValue = newValue
-        theIndex = i
+for 👁 in 0...(💵 - 13) {
+    let 🆕:Int = 🤗(👆:👁, 📏:12)
+    if (🆕 > 🚀) {
+        🚀 = 🆕
     }
 }
 
-print(🐇(index:theIndex, length:12))
-
+print(🚀)
