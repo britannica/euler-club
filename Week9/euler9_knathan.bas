@@ -1,0 +1,12 @@
+#BASIC PROGRAMMING BUT USING YA BASIC COMPLIER 
+#EXECUTE USING http://www.compileonline.com/execute_basic_online.php
+10 FOR A = 1 TO 1000
+20 FOR B = A+1 TO 1000
+30 C = 1000 - A - B
+40 IF A*A + B*B = C*C THEN 
+50 PRINT A, B, C
+60 GOTO 100
+70 END IF
+80 NEXT B
+90 NEXT A
+100 END
