@@ -43,5 +43,5 @@ for a in range(1,max_possible_value_for_a):
     if a<b and is_natural_number(b):
         c = 1000-a-b
         if b<c and is_natural_number(c) and is_pythagorean_triplet(a,b,c):
-            print('found triplet: ' + str(a) + ' ' + str(int(b)) + ' ' + str(int(c)))
-            print('product is: ' + str(int(a*b*c)))
+            print('found triplet: %s, %s, %s' % (a, int(b), int(c)))
+            print('product is: %s' % (int(a*b*c)))
