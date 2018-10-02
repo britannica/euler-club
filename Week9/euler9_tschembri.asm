@@ -1,7 +1,7 @@
 ; Euler9 in i386 assembler
 ; can be tested @http://www.tutorialspoint.com/compile_assembly_online.php
 ; system calls are for Linux. Should be replaced with int 21h in Windows.
-; much much more verbose and uglier than 68000 assembler. Intel assemblers are awful. 
+; much much more verbose and uglier than 68000 assembler. Intel assembly is awful. 
 
 section    .text
     global _start       
@@ -74,6 +74,7 @@ _start:
     int     0x80           ; call kernel
 
 ; display a number contained in the eax register
+; imported from library
 
 _printDec:
 
