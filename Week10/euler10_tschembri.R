@@ -1,7 +1,7 @@
 # Euler10 in R
 # can be tested @ https://www.tutorialspoint.com/execute_r_online.php
 
-Reduce( '+', as.numeric( unlist(                        # <- sum result (conversion to numeric because integer overflow)
+Reduce( '+',                                            # <- sum result
 
   ( function( num ){                                    # anonymous function
       sieve <- rep( TRUE, num )                         # fill the list with TRUE
@@ -11,7 +11,7 @@ Reduce( '+', as.numeric( unlist(                        # <- sum result (convers
           sieve [ seq.int( 2 * i, num, i ) ] <- FALSE   # then all its multiples are not prime numbers 
         }
       }
-      return( which( sieve ) )                          # filter the list and keeps only indexes of TRUE value
-  })(2000000)
+      return( as.numeric( which( sieve ) ) )            # filter the list and keeps only indexes of TRUE value \
+  })(2000000)                                           # and convert them to numeric (53bit) because of integer overflow
 
-)))
+)
