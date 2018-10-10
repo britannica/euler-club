@@ -1,0 +1,37 @@
+# Find sum of primes less than 2000000
+# https://www.tutorialspoint.com/execute_julia_online.php
+
+function get_primes_set(n)
+    numbers = IntSet(2:n)
+    primes = Int[]
+    while !isempty(numbers)
+        p = shift!(numbers)
+        push!(primes, p)
+        setdiff!(numbers, p:p:n)
+    end
+    return primes
+end
+
+function get_primes_array_bool(n)
+    primes = fill(true,n) # create an array of booleans
+    primes[1] = false
+    for p = 2:n
+        primes[p] || continue
+        for i = 2:div(n,p)
+            primes[p*i] = false # set non-prime indexes to false
+        end
+    end
+    find(primes) # returns the indices where a vector is non-zero (i.e. true)
+end
+
+@time primes = get_primes_set(2000000)
+println(sum(primes))
+
+# 6.346107 seconds (18.47 k allocations: 5.093 MiB)
+# 142913828922
+
+@time primes = get_primes_array_bool(2000000)
+println(sum(primes))
+
+#  0.085842 seconds (10.54 k allocations: 3.630 MiB)
+# 142913828922
