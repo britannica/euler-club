@@ -27,24 +27,23 @@ grid = "08 02 22 97 38 15 00 40 00 75 04 05 07 78 52 12 50 77 91 08\n" \
        "01 70 54 71 83 51 54 69 16 92 33 48 61 43 52 01 89 19 67 48"
 
 
-def find_series_products(series, count):
-    offset = len(series) - count + 1
-    return [reduce(mul, series[start:start + count], 1) for start in range(0, offset)]
+def find_series_products(series, slice_size):
+    inclusive_stop_index = len(series) - slice_size + 1
+    return [reduce(mul, series[start:start + slice_size], 1) for start in range(0, inclusive_stop_index)]
 
-
-def find_diagonal_product(x_start, y_start, descending):
+def find_diagonal(start, transposed_matrix):
+    y = 0
     diagonal = list()
-    for i in range(0, adjacent_count):
-        x_index = x_start + i
-        y_index = y_start + i if descending else y_start - i
-        diagonal.append(matrix[y_index][x_index])
-    return reduce(mul, diagonal, 1)
+    for x in range(start, len(transposed_matrix)):
+        diagonal.append(transposed_matrix[x][y])
+        y += 1
+    return diagonal
 
 
 # process text block into a two-dimensional matrix
 lines = grid.split('\n')
 for line in lines:
-    matrix.append(list(int(x) for x in line.strip().split(' ')))
+    matrix.append([int(n) for n in line.strip().split(' ')])
 
 # find horizontal products by row
 for row in matrix:
@@ -54,16 +53,12 @@ for row in matrix:
 for column in zip(*matrix):
     products.update(find_series_products(column, adjacent_count))
 
-# find diagonal products, left to right, one by one
-x_stop = len(list(zip(*matrix))) - adjacent_count + 1
-for x in range(0, x_stop):
-    # descending diagonals
-    y_stop = len(matrix) - adjacent_count + 1
-    for y in range(0, y_stop):
-        products.add(find_diagonal_product(x, y, True))
-    # ascending diagonals
-    y_start_offset = adjacent_count - 1
-    for y in range(y_start_offset, len(matrix)):
-        products.add(find_diagonal_product(x, y, False))
+# generate four matrices, each rotated 90 degrees
+matrix_rotations = [matrix, matrix[::-1], list(zip(*matrix)), list(zip(*matrix[::-1]))]
+
+# calculate all the diagonals
+for start in range(0, len(matrix)):
+    for diagonal in [find_diagonal(start, rotated_matrix) for rotated_matrix in matrix_rotations]:
+        products.update(find_series_products(diagonal, adjacent_count))
 
 print(max(products))
