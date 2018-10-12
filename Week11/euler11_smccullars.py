@@ -1,8 +1,9 @@
 from functools import reduce
 from operator import mul
 
-matrix = []
-largest_product = 0
+matrix = list()
+adjacent_count = 4
+products = set()
 
 grid = "08 02 22 97 38 15 00 40 00 75 04 05 07 78 52 12 50 77 91 08\n" \
        "49 49 99 40 17 81 18 57 60 87 17 40 98 43 69 48 04 56 62 00\n" \
@@ -23,44 +24,46 @@ grid = "08 02 22 97 38 15 00 40 00 75 04 05 07 78 52 12 50 77 91 08\n" \
        "04 42 16 73 38 25 39 11 24 94 72 18 08 46 29 32 40 62 76 36\n" \
        "20 69 36 41 72 30 23 88 34 62 99 69 82 67 59 85 74 04 36 16\n" \
        "20 73 35 29 78 31 90 01 74 31 49 71 48 86 81 16 23 57 05 54\n" \
-       "01 70 54 71 83 51 54 69 16 92 33 48 61 43 52 01 89 19 67 48" 
+       "01 70 54 71 83 51 54 69 16 92 33 48 61 43 52 01 89 19 67 48"
 
+
+def find_series_products(series, count):
+    offset = len(series) - count + 1
+    return [reduce(mul, series[start:start + count], 1) for start in range(0, offset)]
+
+
+def find_diagonal_product(x_start, y_start, descending):
+    diagonal = list()
+    for i in range(0, adjacent_count):
+        x_index = x_start + i
+        y_index = y_start + i if descending else y_start - i
+        diagonal.append(matrix[y_index][x_index])
+    return reduce(mul, diagonal, 1)
+
+
+# process text block into a two-dimensional matrix
 lines = grid.split('\n')
 for line in lines:
-    matrix.append([int(x) for x in line.strip().split(' ')])
+    matrix.append(list(int(x) for x in line.strip().split(' ')))
 
-def find_largest_product(series, adjacent_count):
-    this_largest_product = 0
-    for start in range(0, len(series) - adjacent_count):
-        product = reduce(mul, series[start:start+adjacent_count], 1)
-        if product > this_largest_product:
-            this_largest_product = product
-    return this_largest_product
-
-#horizontal products
+# find horizontal products by row
 for row in matrix:
-    largest_product = find_largest_product(row, 4)
+    products.update(find_series_products(row, adjacent_count))
 
-#vertical products
+# find vertical products by column
 for column in zip(*matrix):
-    vertical_largest_product = find_largest_product(column, 4)
-    if vertical_largest_product > largest_product:
-        largest_product = vertical_largest_product
+    products.update(find_series_products(column, adjacent_count))
 
-for x_start in range(0, len(matrix[0]) - 3):
-    for y_start in range(0, len(matrix) - 3):
-        diagonal_product = 1
-        for i in range(0, 4):
-            diagonal_product *= matrix[y_start + i][x_start + i]
-        if diagonal_product > largest_product:
-            largest_product = diagonal_product
+# find diagonal products, left to right, one by one
+x_stop = len(list(zip(*matrix))) - adjacent_count + 1
+for x in range(0, x_stop):
+    # descending diagonals
+    y_stop = len(matrix) - adjacent_count + 1
+    for y in range(0, y_stop):
+        products.add(find_diagonal_product(x, y, True))
+    # ascending diagonals
+    y_start_offset = adjacent_count - 1
+    for y in range(y_start_offset, len(matrix)):
+        products.add(find_diagonal_product(x, y, False))
 
-for x_start in range(0, len(matrix[0]) - 3):
-    for y_start in range(3, len(matrix)):
-        diagonal_product = 1
-        for i in range(0, 4):
-            diagonal_product *= matrix[x_start + i][y_start - i]
-        if diagonal_product > largest_product:
-            largest_product = diagonal_product
-
-print(largest_product)
+print(max(products))
