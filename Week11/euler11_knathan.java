@@ -28,7 +28,7 @@ public class greatestProduct {
         for(int i = 0; i < 20; i++){
             for(int j = 0; j < 17; j++){
                 Product = Matrix20x20[i][j] * Matrix20x20[i][j + 1] * Matrix20x20[i][j + 2] * Matrix20x20[i][j + 3];
-                // System.out.println (Grid[i][j]);
+                // System.out.println (Matrix20x20[i][j]);
                 if(Product > Greatest){
                     Greatest = Product;
                 }
@@ -38,7 +38,7 @@ public class greatestProduct {
         for(int i = 0; i < 17; i ++){
             for(int j = 0; j < 20; j++){
                 Product = Matrix20x20[i][j] * Matrix20x20[i + 1][j] * Matrix20x20[i + 2][j] * Matrix20x20[i + 3][j];
-                // System.out.println (Grid[i][j]);
+                // System.out.println (Matrix20x20[i][j]);
                 if(Product > Greatest){
                     Greatest = Product;
                 }
@@ -48,7 +48,7 @@ public class greatestProduct {
         for(int i = 0; i < 17; i++){
             for(int j = 0; j < 17; j++){
                 Product = Matrix20x20[i][j] * Matrix20x20[i + 1][j + 1] * Matrix20x20[i + 2][j + 2] * Matrix20x20[i + 3][i + 3];
-                // System.out.println (Grid[i][j]);
+                // System.out.println (Matrix20x20[i][j]);
                 if(Product > Greatest){
                     Greatest = Product;
                 }
@@ -58,7 +58,7 @@ public class greatestProduct {
         for(int i = 0; i < 17; i ++){
             for(int j = 3; j < 20; j ++){
                 Product = Matrix20x20[i][j] * Matrix20x20[i + 1][j - 1] * Matrix20x20[i + 2][j  - 2] * Matrix20x20[i + 3][j - 3];
-                //System.out.println (Grid[i][j]);
+                //System.out.println (Matrix20x20[i][j]);
                 if(Product > Greatest){
                     Greatest = Product;
                 }
