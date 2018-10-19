@@ -1,27 +1,49 @@
-from math import floor
+from functools import reduce
+from math import floor, sqrt
+from operator import mul
 
-def find_divisors(num):
-    #every number is divisible by one and itself
-    divisors = {1, num}
-    maximum_possible_divisor = floor(num/2) + 1
-    for i in range(2, maximum_possible_divisor):
-        if i not in divisors and num % i == 0:
-            divisors.add(i)
-            divisors.add(int(num/i))
-    return divisors
 
-def calculate_triangle_number(n):
-    return sum([i for i in range(1,n+1)])
+#recycled from my solution to week 10 via the sieve of eratosthenes
+def generate_primes(max_number):
+    #index is offset by 2..ie. the sieve's position 0 is 2, position 1 is 3, etc.
+    sieve = [True for x in range(2,max_number)]
 
-x = 2
+    for x in range(2,floor(sqrt(max_number))):
+        for not_prime in range(2*x, max_number, x):
+            sieve[not_prime-2] = False
+
+    return [x+2 for x in range(0, len(sieve)) if sieve[x]]
+
+
+def factorize(num, primes):
+    factorization = {}
+    for prime in primes:
+        if num == 1:
+            return factorization
+        if num % prime == 0:
+            if prime in factorization:
+                factorization[prime] += 1
+            else:
+                factorization[prime] = 1
+            num = int(num/prime)
+            while num % prime == 0:
+                factorization[prime] += 1
+                num = int(num/prime)
+    return factorization
+
+
+primes = generate_primes(1000)
+
+n = 1
 while True:
-    triangle_number = calculate_triangle_number(x)
-    divisors = find_divisors(triangle_number)
-    if len(divisors) > 500:
-        print('x:             ' + str(x))
+    triangle_number = sum([i for i in range(1,n+1)])
+    factorization = factorize(triangle_number, primes)
+
+    divisor_count = reduce(mul, [int(exponent+1) for exponent in factorization.values()], 1)
+    if divisor_count > 500:
+        print('n:             ' + str(n))
         print('triangle num:  ' + str(triangle_number))
-        print('divisor count: ' + str(len(divisors)))
-        print('divisors:      ' + str(sorted(divisors)))
-        print('--------------------------------')
+        print('factorization: ' + str(factorization))
+        print('divisor count: ' + str(divisor_count))
         break
-    x += 1
+    n += 1
