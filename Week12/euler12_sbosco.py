@@ -8,8 +8,8 @@ def divisor_count(x):
             count += 1
     return count
 
-inc = 559
-triangle = 156520
+inc = 0
+triangle = 0
 count = 0
 while count < 500:
     inc += 1
