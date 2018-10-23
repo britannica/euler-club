@@ -1,0 +1,35 @@
+to divisors :n
+
+  make "z 0
+  make "s :n
+  make "i 1
+
+  while [ :i <= sqrt :n ] [
+     if ( modulo :n :i ) = 0 [
+      ifelse :n / :i = :i [ make "z ( :z + 1 ) ][ make "z ( :z + 2 ) ]
+    ]
+    make "i :i + 1
+  ]
+
+  output :z
+
+end
+
+to euler12 :x
+
+    make "n 1
+    make "i 1
+    make "p 0
+
+    repeatwhile [
+        make "i :i + 1
+        make "n :n + :i
+        make "p divisors :n
+    ] [ :p < :x ]
+
+    print :n
+    print :p
+
+end
+
+euler12 500
