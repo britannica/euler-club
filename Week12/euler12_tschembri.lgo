@@ -1,3 +1,6 @@
+; test it on Berkeley Logo 6.0 ( ftp://ftp.cs.berkeley.edu/pub/ucblogo )
+; prepare a coffee, takes forever...
+
 to divisors :n
 
   make "z 0
