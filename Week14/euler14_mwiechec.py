@@ -3,6 +3,7 @@ import functools
 
 
 def memoize(func):
+    """Wrapper function to cache function results"""
     memo = {}
 
     @functools.wraps(func)
@@ -16,6 +17,7 @@ def memoize(func):
 
 
 def timer(func):
+    """Wrapper function to time function call"""
     @functools.wraps(func)
     def wrapper_timer(*args, **kwargs):
         start_time = time.perf_counter()
@@ -28,6 +30,7 @@ def timer(func):
 
 
 def collatz_func(x):
+    """Collatz function"""
     if x % 2 == 0:
         y = x//2
     else:
@@ -38,6 +41,7 @@ def collatz_func(x):
 # @functools.lru_cache(maxsize=None)
 @memoize
 def collatz_sequence_length(x):
+    """Calculates the length of a Collatz Sequence"""
     y = collatz_func(x)
     if y == 1:
         return 2
@@ -48,7 +52,8 @@ def collatz_sequence_length(x):
 
 
 @timer
-def get_answer(limit):
+def get_longest_sequence(limit):
+    """Finds the longest Collatz Sequence upto a given limit, returns the seed value and length"""
     solution = (0, 1)
     for num in range(1, limit):
         length = collatz_sequence_length(num)
@@ -58,5 +63,5 @@ def get_answer(limit):
 
 
 if __name__ == '__main__':
-    answer = get_answer(1000000)
+    answer = get_longest_sequence(1000000)
     print(answer)
