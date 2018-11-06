@@ -8,7 +8,7 @@ def collatz(val, allcounts):
     while val > 1:
         if val in allcounts:
             count += allcounts[val]
-            allcounts[in_val] = count
+            allcounts[in_val] = count - 1
 #             print(chain)
             return count
         if val % 2 == 0: # if even
@@ -17,7 +17,7 @@ def collatz(val, allcounts):
             val = 3 * val + 1
         chain = chain + ' -> ' + str(val)
         count += 1
-    allcounts[in_val] = count
+    allcounts[in_val] = count - 1
 #     print(chain)
     return count
     
@@ -25,7 +25,7 @@ allcounts = {}
 maxval = 0
 maxcount = 0
 t0 = time.time()
-for test in range(2,1000000):
+for test in range(1,1000000):
 # for test in range(837799,837800):
     count = collatz(test, allcounts)
 #     print ('count=',count)
@@ -37,6 +37,5 @@ print('val=',maxval, 'count=',maxcount)
 elapsed = t1 - t0
 print('time=',elapsed)
 
-
-#### val= 837799 count= 556
-#### time= 6.019999980926514
+#### val= 837799 count= 525
+#### time= 5.710000038146973
