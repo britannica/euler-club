@@ -1,0 +1,49 @@
+! Euler14 in SIMULA 67;
+! cannot be compiled online (the array is too big);
+! Download the simula compiler @http://www.simula67.info/ ;
+! compile with: cim -o euler14 --memory-pool-size=10 -w euler14_tschembri.sim;
+! executes in ~0.2s;
+
+Begin
+
+    integer max; 
+    integer index; 
+    integer array cache(0:1000000);
+    real n;
+    integer chain_size;
+    integer i;
+    
+    max := 1;
+    
+    for i := 2 step 1 until 1000000 do   
+    begin
+        n := i;
+        chain_size := 0;
+
+        while n >= i do
+        begin
+            chain_size := chain_size + 1;
+            if mod( n, 2 ) = 0 then
+            begin
+                n := n / 2;
+                if n < i then chain_size := chain_size + cache(n);
+            end
+            else n := 3 * n + 1;
+        end;
+
+        cache(i) := chain_size;
+        if chain_size > max then 
+        begin
+            max := chain_size + 1;
+            index := i;
+        end;    
+    end
+
+   outimage;
+   outtext( "number     = " ); outint( index, 10 );
+   outimage;
+   outtext( "chain size = " ); outint( max, 10 );
+   outimage;
+   outtext( "time (in s)= " ); outreal( cputime, 10, 20 );
+   
+End;
