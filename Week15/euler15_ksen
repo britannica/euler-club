@@ -1,0 +1,11 @@
+# Each unique path can be described by a binary number of 2N bits, where a "0"
+# represent a move right and a "1" represent a move down, and the number of 1s is exacty N
+# Therefore, for a N by N grid, the number of unique paths are --
+# P = (2*N)!/(N! * N!)
+# For N=20, P = 40!/(20! * 20!) = 137,846,528,820
+
+from math import factorial
+
+N = 20
+P = factorial(2*N)/(factorial(N)*factorial(N))
+print (P)
