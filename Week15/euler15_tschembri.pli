@@ -1,0 +1,86 @@
+/* Euler 15 in PL/I */
+
+/* Going from (1,1) to (20,20) will always require 40 steps:          */
+/* 20 -> ( going right) and 20 \/ ( going down )                      */
+/* So, finding the number of ways to go from (1,1) to (20,20)         */
+/* is actually finding the number of combinations                     */
+/* C(n,k) where n = 40 and k = 20                                     */
+/* which is the number of possible moves on the right among 40 moves  */
+/* the result is 40! / 20! * ( 40 - 20 )!                             */
+
+/* PL/I!                                                              */
+/* I couldn't find any version of PL/I for windows or MSDOS           */
+/* The MSDOS version didn't work for some reasons, so I had           */
+/* to use PL/I for CP/M                                               */
+
+/* PL/I for CP/M can be downloaded @https://schorn.ch/altair_6.php     */
+/* It is a disk image for SIMH (http://simh.trailing-edge.com/),       */
+/* an emulator of prehistoric computers. I used the altair emulation   */
+/* with CP/M 2.2.                                                      */
+
+/* Because the numbers are quite big (40!), I had to use float numbers */
+/* instead of fixed decimal numbers because the DR PL/I implementation */
+/* doesn't support large fixed decimal numbers on 8bit computers.      */
+/* That caused rounding errors in the multiplications and divisions,   */
+/* so the final result is 0.0001 wrong */
+
+
+Euler15: proc options(main);
+
+product:
+    procedure(s,e) returns( float binary(53) );
+    declare n float binary(53);  
+    declare (s, e, i) fixed;   
+    n = s;
+    do i = s + 1 to e by 1;
+    n = n * i;
+    end;          
+    return(n);
+end product;
+
+begin; 
+   declare (n,d) float binary(53);
+   n = product( 21, 40 );
+   d = product( 1, 20 );
+   put list ( 'Result = ', n/d );
+end;
+   
+end Euler15;
+
+/* compilation and result 
+
+B>pli euler
+--------------------------------------------------
+PL/I-80 Compiler                       Version 1.4
+Serial No. 3032-0000-001130    All Rights Reserved
+Copyright (c) 1980-1982     Digital Research, Inc.
+--------------------------------------------------
+
+COMPILATION OF: EULER
+
+
+   NO ERROR(S) IN PASS 1
+
+   NO ERROR(S) IN PASS 2
+
+
+CODE SIZE = 00BB
+DATA AREA = 0039
+FREE SYMS = 3033
+END  COMPILATION
+
+B>link euler
+LINK 1.31
+
+PLILIB   RQST   EULER1   0100   /SYSIN/  1EF8   /SYSPRI/ 1F1F
+
+ABSOLUTE     0000
+CODE SIZE    1D94 (0100-1E93)
+DATA SIZE    0229 (1F7A-21A2)
+COMMON SIZE  00E6 (1E94-1F79)
+USE FACTOR     69
+
+B>euler
+Result =   1.378465288199999E+011
+
+*/
