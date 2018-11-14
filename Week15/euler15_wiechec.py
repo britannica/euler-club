@@ -28,5 +28,5 @@ def get_total_paths(width, height):
 
 
 if __name__ == '__main__':
-    answer = get_total_paths(10, 10)
+    answer = get_total_paths(20, 20)
     print(answer)
