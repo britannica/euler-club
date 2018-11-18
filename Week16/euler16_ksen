@@ -1,0 +1,40 @@
+# Euler-16
+# Two Solutions
+
+n = 1000
+
+# Solution 1: utilizing Python's ability to handle large numbers
+# Generate the number as 2^1000 and then break it up as digits and add them
+
+sum = 0
+p = 2 ** n
+while p > 9:
+    digit = p % 10
+    sum = sum + digit
+    p = p // 10
+sum = sum + p
+print (sum)
+
+# ------------------------------------------------------------------------
+
+# Solution 2: When long numbers are not supported
+# create an array of decimal digits and then use long-multiplication to calculate 2^1000
+# Then add all the digits together
+
+import array as arr
+maxDigits = 400
+digits = arr.array('I', [0 for i in range(maxDigits)])
+digits[1]= 2
+numDigits = 1
+for i in range(n-1):
+    carry = 0
+    for j in range(1,numDigits+2):
+       p = 2 * digits[j] + carry
+       carry = p // 10
+       digits[j] = p % 10
+    if digits[numDigits + 1] != 0:
+        numDigits = numDigits + 1
+sum = 0
+for j in range(numDigits+1):
+    sum = sum + digits[j]
+print (sum)
