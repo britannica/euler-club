@@ -1,0 +1,72 @@
+          R Euler17 in MAD (Michigan Algorithm Decoder) - 1959/IBM 704
+          R IBM 704: 36bit word, 4KW Core RAM, 8KW Drum memory, 9 tons
+          R "compiler" can be found @http://www.catb.org/esr/mad/
+          R requires gcc, python and PYL module to generate the executable (and linux)
+          R          
+          R Some variable declarations
+          R
+            NORMAL MODE IS INTEGER
+            DIMENSION L20(20),LTENS(10)
+            INTEGER L20,LTENS,SUM
+            SUM = 0
+          R 
+          R size of numbers between 0 and 20 (not included) and tens from 20 to 99
+          R
+            VECTOR VALUES L20 = 0,3,3,5,4,4,3,5,5,4,3,6,6,8,8,7,7,9,8,8
+            VECTOR VALUES LTENS = 0,0,6,6,5,5,5,7,6,6
+          R
+          R This function returns the size of a number between 1 and 99 (included)
+          R The function is "internal" because it can access the global variables
+          R       
+            INTERNAL FUNCTION(N)
+               ENTRY TO LE99.
+               WHENEVER N .L. 20 
+                  FUNCTION RETURN L20(N)
+               OTHERWISE
+                  FUNCTION RETURN LTENS(N/10) + L20(N .MOD. 10)
+               END OF CONDITIONAL     
+            END OF FUNCTION
+          R
+          R Loop from 1 to 1000
+          R       
+            THROUGH LOOP, FOR I = 1, 1, I .G. 1000
+          R         
+          R    If the number = 1000, add "one" (3) + "thousand" (8)
+          R
+               WHENEVER I .E. 1000
+                 SUM = SUM + 3 + 8
+          R
+          R    If the number <= 99, add the result of the function   
+          R
+               OR WHENEVER I .L. 100 
+                 SUM = SUM + LE99.(I)
+          R
+          R    otherwise, the number is >= 100 and < 1000
+          R    hund(red)s = one to 9 hundreds
+          R    rem(ainder) = one to 99
+          R    first add the hundreds + 7 ("hundred")
+          R    then, add the remainder (if any) + 3 ("and")
+          R           
+               OTHERWISE
+                 HUNDS = (I/100) .MOD. 10
+                 REM = I .MOD. 100
+                 SUM = SUM + L20(HUNDS) + 7
+                 WHENEVER REM .NE. 0
+                   SUM = SUM + 3 + LE99.(REM)
+                 END OF CONDITIONAL
+               END OF CONDITIONAL
+          R     
+LOOP        CONTINUE            
+          R
+          R Display result
+          R       
+            VECTOR VALUES RESULT = $4HSUM=I2*$
+            PRINT FORMAT RESULT,SUM
+            END OF PROGRAM
+            
+            
+--- screenshot ----
+
+ts@tschembri5520:/mnt/c/tmp/mad-1.1$ ./mad euler17.mad
+ts@tschembri5520:/mnt/c/tmp/mad-1.1$ ./euler17
+SUM=21124
