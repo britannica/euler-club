@@ -21,8 +21,8 @@ for i in range(0, TREE_SIZE):
 # print tree
 
 #traverse tree from bottom
-branchtot = [[0] * 15 for i in range(TREE_SIZE)]
-branchpath = [[0] * 15 for i in range(TREE_SIZE)]
+branchtot = [[0] * TREE_SIZE for i in range(TREE_SIZE)]
+branchpath = [[0] * TREE_SIZE for i in range(TREE_SIZE)]
 for i in range(TREE_SIZE-1, -1, -1):
     for j in range(0, i+1):
         if i == TREE_SIZE-1:
