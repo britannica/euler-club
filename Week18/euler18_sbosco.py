@@ -45,3 +45,6 @@ print branchtot[i][j], branchpath[i][j]
 t1 = time.time()
 elapsed = t1 - t0
 print 'time=', elapsed
+
+1074 75-64-82-87-82-75-73-28-83-32-91-78-58-73-93
+time= 0.000999927520752
