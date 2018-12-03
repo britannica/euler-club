@@ -10,20 +10,25 @@ inputdata = [75, 95, 64, 17, 47, 82, 18, 35, 87, 10, 20, 4, 82, 47, 65, 19, 1, 2
          28, 77, 73, 17, 78, 39, 68, 17, 57, 91, 71, 52, 38, 17, 14, 91, 43, 58, 50, 27, 29, 48, 63, 
          66, 4, 68, 89, 53, 67, 30, 73, 16, 69, 87, 40, 31, 4, 62, 98, 27, 23, 9, 70, 98, 73, 93, 
          38, 53, 60, 4, 23]
+    
+# print inputdata
 
 # load tree
 index = 0
-tree = [[0] * TREE_SIZE for i in range(TREE_SIZE)]
+tree = {}
 for i in range(0, TREE_SIZE):
+    tree[i] = tree.get(i, {})
     for j in range(0, i+1):
         tree[i][j] = inputdata[index]
-        index += 1    
+        index += 1
 # print tree
 
-#traverse tree from bottom
-branchtot = [[0] * TREE_SIZE for i in range(TREE_SIZE)]
-branchpath = [[0] * TREE_SIZE for i in range(TREE_SIZE)]
+# traverse tree from bottom
+branchtot = {}
+branchpath = {}
 for i in range(TREE_SIZE-1, -1, -1):
+    branchtot[i] = branchtot.get(i, {})
+    branchpath[i] = branchpath.get(i, {})
     for j in range(0, i+1):
         if i == TREE_SIZE-1:
             branchtot[i][j] = tree[i][j]
@@ -36,12 +41,8 @@ for i in range(TREE_SIZE-1, -1, -1):
                 branchtot[i][j] = tree[i][j] + branchtot[i+1][j+1]
                 branchpath[i][j] = str(tree[i][j]) + '-' + branchpath[i+1][j+1]
 #             print i, j, branchtot[i][j], branchpath[i][j]
-
+ 
 print branchtot[i][j], branchpath[i][j]
-
-t1 = time.time()
-elapsed = t1 - t0
-print 'time=', elapsed
 
 
 1074 75-64-82-87-82-75-73-28-83-32-91-78-58-73-93
