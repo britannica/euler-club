@@ -46,3 +46,18 @@ AND max(a,b) = VALOF
     THEN RESULTIS b
     ELSE RESULTIS a
 }
+
+// --- screenshot:
+
+ts@tschembri5520:/mnt/c/tmp/BCPL/cintcode$ cintsys
+
+BCPL 32-bit Cintcode System (9 Feb 2018)
+0.000> c b euler18
+bcpl euler18.b to euler18 hdrs BCPLHDRS t32
+
+BCPL (27 Nov 2018) 32 bit with the FLT feature
+Code size =   644 bytes of 32-bit little ender Cintcode
+0.000> euler18
+1074
+0.000>
+
