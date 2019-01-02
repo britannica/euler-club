@@ -16,18 +16,12 @@
 EULER19: DO;
 $include(doslibs.inc)
 
-  print: PROCEDURE(string);
-   DECLARE string POINTER;
-   CALL dos_std_string_out(string);
-   CALL dos_std_string_out(@(13,10,'$'));
-  END print;   
-  
   print_word: PROCEDURE(n,digits) REENTRANT;
     DECLARE n  WORD, digits INTEGER, ch BYTE;
-   IF n < 10 THEN 
-      DO;    
-          ch = '0' + n;
-          CALL dos_std_out(ch);
+    IF n < 10 THEN 
+       DO;    
+         ch = '0' + n;
+         CALL dos_std_out(ch);
        END;
     ELSE
        DO;
@@ -35,7 +29,6 @@ $include(doslibs.inc)
          CALL print_word(n MOD 10, 1);
        END;
   END print_word;
-
    
   DECLARE month(12) BYTE INITIAL(31,28,31,30,31,30,31,31,30,31,30,31); 
   DECLARE sundays WORD INITIAL(0);
@@ -43,15 +36,15 @@ $include(doslibs.inc)
   DECLARE (i,j,k) WORD;
     
   DO i=1901 TO 2001;
-     IF i MOD 4 = 0 THEN month(1)=29;
+    IF i MOD 4 = 0 THEN month(1)=29;
     ELSE month(1)=28;
     DO j=0 TO 11;
        DO k=1 TO month(j);
           IF n=6 THEN 
           DO;
-           IF k=1 THEN sundays=sundays+1;
-           n=0;
-         END; 
+            IF k=1 THEN sundays=sundays+1;
+            n=0;
+          END; 
           ELSE n=n+1;
       END;
     END;         
