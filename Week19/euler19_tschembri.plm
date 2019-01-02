@@ -1,0 +1,86 @@
+/* EULER19 in PL/M                                                       */
+
+/* Run PL/M in a DOS emulator (like vDos)                                */
+/* Download PL/M @https://winworldpc.com/product/intel-plm-compiler/27   */
+/* Also download Microsoft ASM86 to build the DOS ints calls:            */
+/* https://winworldpc.com/product/intel-asm86-macro-assembler/31         */
+
+/* Extract everything in the same folder and run:                        */
+/* asm86 doslibs.asm (to build the DOS ints library)                     */
+
+/* then compile the source with:                                         */
+/* plm86 euler19.plm     <- create euler19.obj                           */
+/* link86 euler19.obj, doslibs.obj, plm86.lib to euler.86 bind <- link   */
+/* UDI2DOS euler19 <- convert euler.86 to euler.exe                      */
+
+EULER19: DO;
+$include(doslibs.inc)
+
+  print: PROCEDURE(string);
+   DECLARE string POINTER;
+   CALL dos_std_string_out(string);
+   CALL dos_std_string_out(@(13,10,'$'));
+  END print;   
+  
+  print_word: PROCEDURE(n,digits) REENTRANT;
+    DECLARE n  WORD, digits INTEGER, ch BYTE;
+   IF n < 10 THEN 
+      DO;    
+          ch = '0' + n;
+          CALL dos_std_out(ch);
+       END;
+    ELSE
+       DO;
+         CALL print_word(n / 10, digits - 1);
+         CALL print_word(n MOD 10, 1);
+       END;
+  END print_word;
+
+   
+  DECLARE month(12) BYTE INITIAL(31,28,31,30,31,30,31,31,30,31,30,31); 
+  DECLARE sundays WORD INITIAL(0);
+  DECLARE n BYTE INITIAL(-1);   /* January starts a tuesday in 1901 */
+  DECLARE (i,j,k) WORD;
+    
+  DO i=1901 TO 2001;
+     IF i MOD 4 = 0 THEN month(1)=29;
+    ELSE month(1)=28;
+    DO j=0 TO 11;
+       DO k=1 TO month(j);
+          IF n=6 THEN 
+          DO;
+           IF k=1 THEN sundays=sundays+1;
+           n=0;
+         END; 
+          ELSE n=n+1;
+      END;
+    END;         
+  END;
+   
+  CALL print_word(sundays,4);
+  CALL dos_exit(0);
+
+END EULER19; 
+
+/* Screenshot:
+
+C:\INTEL>plm86 euler19.plm
+
+DOS 5.0 (038-N) PL/M-86 COMPILER V2.7
+Copyright Intel Corporation 1980, 1984, 1985
+PL/M COMPILATION COMPLETE.         0 WARNINGS,        0 ERRORS
+
+C:\INTEL>link86 euler19.obj, doslibs.obj, plm86.lib to euler.86 bind
+
+DOS 5.0 (046-N) 8086 LINKER, V3.1
+Copyright Intel Corporation 1984, 1987
+
+C:\INTEL>UDI2DOS euler19
+DOS UDI2DOS, V1.1
+Copyright 1985 Intel Corporation
+
+C:\INTEL>euler19
+171
+C:\INTEL>
+
+*/
