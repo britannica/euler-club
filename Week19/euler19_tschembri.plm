@@ -1,4 +1,5 @@
 /* EULER19 in PL/M                                                       */
+/* PL/M Manual: https://bit.ly/2QqbgnD                                   */
 
 /* Run PL/M in a DOS emulator (like vDos)                                */
 /* Download PL/M @https://winworldpc.com/product/intel-plm-compiler/27   */
