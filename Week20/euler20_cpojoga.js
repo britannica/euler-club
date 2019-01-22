@@ -1,3 +1,4 @@
+// Solution 1
 // Using JS build in BigNumbers
 const factorial = (n) => {
 	const big1 = BigInt(1);
@@ -8,3 +9,7 @@ const sumOfDigits = str => str.split('').reduce((a, b) => parseInt(a) + parseInt
 
 console.log(sumOfDigits(factorial(100).toString()));
 // 648
+
+// Solution 2
+// using an array to store the number
+
