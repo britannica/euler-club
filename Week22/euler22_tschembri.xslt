@@ -7,14 +7,14 @@
 <!--
 
 <names>
-    <name><z>MARY</z></name>
-    <name><z>PATRICIA</z></name>
-    <name><z>LINDA</z></name>
-    <name><z>BARBARA</z></name>
-    <name><z>ELIZABETH</z></name>
-    <name><z>JENNIFER</z></name>
-    <name><z>MARIA</z></name>
-    <name><z>SUSAN</z></name>
+    <name>MARY</name>
+    <name>PATRICIA</name>
+    <name>LINDA</name>
+    <name>BARBARA</name>
+    <name>ELIZABETH</name>
+    <name>JENNIFER</name>
+    <name>MARIA</name>
+    <name>SUSAN</name>
     .....
 </names>    
 
@@ -25,13 +25,13 @@
 
 <xsl:template match="names">
 
-    <!-- sort the list, the list is copied with the same structure (by the template match -->
-    <!-- at the bottom) in the $sortedList variable -->
+    <!-- sort the list, the sorted list is copied into the $sortedList variable -->
     
     <xsl:variable name="sortedList">
-        <xsl:apply-templates>
-            <xsl:sort select="z" />
-        </xsl:apply-templates>
+        <xsl:for-each select="name">
+            <xsl:sort select="." />
+            <xsl:copy-of select="." />
+        </xsl:for-each>
     </xsl:variable>
     
     <!-- each <name> node of the sorted list is processed, the template will create a -->
@@ -39,7 +39,28 @@
     <!-- $individualSums variable -->
     
     <xsl:variable name="individualSums">
-        <xsl:apply-templates select="$sortedList" mode="sorted" />
+
+        <xsl:for-each select="$sortedList/name">    
+    
+            <!-- create a list of <elt></elt> for each name. Each <elt> contains the value of each letter -->
+            <!-- of the name ( . - 64 = ASCII code of the letter - ASCII code of '@' (just before 'A')) -->
+
+            <xsl:variable name="v" > 
+                <xsl:for-each select="string-to-codepoints(.)">
+                    <xsl:element name="elt"><xsl:value-of select="(. - 64)"/></xsl:element>
+                </xsl:for-each>
+            </xsl:variable>
+            
+            <!-- once the list is created, the template returns just an <elt></elt> -->
+            <!-- which contains the sum of the value of each letter * position()  -->
+            <!-- position() is the index of the loop (starting at 1) -->
+            
+            <xsl:element name="elt">
+                 <xsl:value-of select="sum($v/elt) * position()"/>
+          </xsl:element>
+
+        </xsl:for-each>
+
     </xsl:variable>
     
     <!-- the xsl return the sum of the content of each <elt></elt> node -->
@@ -47,37 +68,7 @@
     <xsl:value-of select="sum($individualSums/elt)" />
  
 </xsl:template>
-  
-<!-- processes each <name></name> node -->  
-  
-<xsl:template match="name" mode="sorted">
 
-    <!-- create a list of <elt></elt> for each name. Each <elt> contains the value of each letter -->
-    <!-- of the name ( . - 64 = ASCII code of the letter - ASCII code of '@' (just before 'A')) -->
-
-    <xsl:variable name="v" > 
-        <xsl:for-each select="string-to-codepoints(.)">
-            <xsl:element name="elt"><xsl:value-of select="( . - 64 )"/></xsl:element>
-        </xsl:for-each>
-    </xsl:variable>
-    
-    <!-- once the list is created, the template returns just an <elt></elt> -->
-    <!-- which contains the sum of the value of each letter * position() which is the <name> position -->
-    <!-- in the parsing ( -1 because position(1) is the root of the document ) -->
-    
-    <xsl:element name="elt">
-        <xsl:value-of select="sum( $v / elt ) * ( position() - 1 )"/>
-    </xsl:element>
-
-</xsl:template>
-  
-<!-- this template returns a copy of a node -->  
-  
-<xsl:template match="@*|node()">
-    <xsl:copy>
-        <xsl:apply-templates select="@*|node()"/>
-    </xsl:copy>
-</xsl:template>
 
 </xsl:stylesheet>
 
