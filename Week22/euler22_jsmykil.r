@@ -1,5 +1,6 @@
-names <- c("...")
-names <- sort(names)
+names <- scan("p022_names.txt", what= "", sep=",", na.strings="")
+names.sorted <- sort(names)
+
 calculate.score <- function(name, index) {
   print(name)
   name.vector <- unlist(strsplit(name, ""))
@@ -10,7 +11,8 @@ calculate.score <- function(name, index) {
 
 index = 1
 total = 0
-for (name in names) {
+for (name in names.sorted) {
+  print(name)
   total.count = sum(sum + calculate.score(name, index));
   total = total + total.count
   index = index + 1
