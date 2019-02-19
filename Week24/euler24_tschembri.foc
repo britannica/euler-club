@@ -40,3 +40,27 @@ $ /usr/local/bin/focal /cygdrive/d/tmp/euler24.foc
 =    4
 =    6
 =    0
+
+--- here are the explanations, I couldn't insert them in the code without renumbering the whole program, I don't want to.
+
+Here is the gist of the algorithm works:
+
+We will use an array of 10 numbers [0,1,2,3,4,5,6,7,8,9]
+
+The 1st digit position will be 999999 / 9! = 2 -> array[2] = 2 -> 1st number is 2
+The remainder of the 999999 / 9! is 274239
+
+We remove the element at index 2, the array is now [0,1,3,4,5,6,7,8,9]
+
+The 2nd digit position will be 274239 / 8! = 6 -> array[6] = 7 -> 2nd number is 7
+The remainder of 274239 / 8! is 32319 
+
+and so on.
+
+Why? well, we can consider that all the permutations can be represented as a table, when we start, we have 10 columns, 
+all the 9! permutations starting with 0 are in column 0, all the 9! permutations starting with 1 are in column 1 and so on. 
+Dividing by 9! give the column, all the elements in the column start with the same number, this number is the 1st number 
+of the solution. The remaining of the division gives the position of the complete solution. 
+We remove it from the list, now the permutations of the remaining numbers can be arranged in table with 9 colums. 
+Each column contains 8! permutation. We know where the solution is from the previous division, so we do the same thing 
+again, until the array is empty.
