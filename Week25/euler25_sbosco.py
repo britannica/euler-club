@@ -33,3 +33,8 @@ while (not done):
 t1 = time.time()
 elapsed = t1 - t0
 print('time={0}'.format(elapsed))
+
+
+
+#  idx=4782, len=1000
+#  time=0.141999959946
