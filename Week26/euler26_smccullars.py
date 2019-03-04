@@ -20,7 +20,6 @@ class LongDivisionStepper:
             # the cycle may only be a subset of all steps (ie. 1/6 
             # or 1/76) ignore everything until we find the beginning
             # step (aka the repeated step)
-
             repeated_step = self.step()
             for index,step in enumerate(self.steps):
                 if step == repeated_step:
@@ -31,7 +30,6 @@ class LongDivisionStepper:
 # flip the usual key/value pair (to make sorting easier).  When
 # there are multiple cycles of equal length, this approach would
 # result in us finding the largest value of i for that cycle count.
-
 cycles = {}
 for i in range(2,1000):
     cycle = LongDivisionStepper(1,i).cycle()
