@@ -11,7 +11,6 @@ class LongDivisionStepper:
         # as long as the next step is not a repeated step, keep going
         while self.step() not in self.steps:
             self.steps.append(self.step())
-
         # if the last step returned zero, the division successfully
         # terminated and there is no cycle
         if self.steps[-1] == 0:
@@ -34,5 +33,4 @@ cycles = {}
 for i in range(2,1000):
     cycle = LongDivisionStepper(1,i).cycle()
     cycles[len(cycle)] = i
-
 print(cycles[max(cycles)])
