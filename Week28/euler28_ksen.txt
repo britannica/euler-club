@@ -1,0 +1,26 @@
+I decided to derive the algebraic formula for this solution.
+The full derivation is a little longer, but here are the essential steps:
+(The text here removed the subscripts. Dn is actually D-sub-n and mn is m-sub-n, and Sum2N is Sigma-2-to-N)
+
+The sum of four diagonal corners for the n-th square is, where mn is the largest diagonal term in Dn-1
+
+Dn = (mn + (2n – 2)) + (mn + 2(2n – 2)) + (mn + 3(2n – 2)) + (mn + 4(2n-2)
+     = 4mn +10(2n – 2)
+
+and
+
+mn = 4(4(n - 1)(n - 2) + 1)
+
+simplifying
+
+Dn = 16n2 - 28n + 16
+
+Sum of N diagonals is 
+
+A = Sum2N(Dn) + 1
+    = 16(N(N+1)(2N+1)/6 – 1) - 28(N(N+1)/2 – 1) + 16(N-1) + 1
+
+For N=501, A = 669,171,001
+
+
+
