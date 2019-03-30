@@ -31,3 +31,13 @@ print('sum of terms={0}'.format(answer))
 t1 = time.time()
 elapsed = t1 - t0
 print('time={0}'.format(elapsed))
+
+
+4150
+4151
+54748
+92727
+93084
+194979
+sum of terms=443839
+time=1.79200005531
