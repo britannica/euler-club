@@ -1,29 +1,27 @@
 desired_total = 200
-
 denominations = (1,2,5,10,20,50,100,200)
 
-def make_change(changes):
+def resolve(solutions):
     additions = set()
     deletions = set()
-    for change in changes:
-        current_total = sum(change)
+    for solution in solutions:
+        current_total = sum(solution)
         if current_total < desired_total:
-            deletions.add(change)
+            deletions.add(solution)
             for coin in denominations:
-                new_total = current_total + coin
-                if new_total <= desired_total:
-                    new_change = list(change)
-                    new_change.append(coin)
-                    additions.add(tuple(sorted(new_change)))
+                # performance optimization: this ensures that
+                # our solution tuples are always in ascending
+                # order...which guarantees uniqueness
+                if coin >= solution[-1]:
+                    if current_total + coin <= desired_total:
+                        additions.add(solution + (coin,))
     if additions or deletions:
-        changes.difference_update(deletions)
-        changes.update(additions)
-        return make_change(changes)
+        solutions.difference_update(deletions)
+        solutions.update(additions)
+        return resolve(solutions)
     else:
-        return changes
-
+        return solutions
 
 # convert the tuple of denominations into a set of one-element tuples
-initial_changes = {(c,) for c in denominations}
-
-print(len(make_change(initial_changes)))
+one_coin_solutions = {(c,) for c in denominations}
+print(len(resolve(one_coin_solutions)))
