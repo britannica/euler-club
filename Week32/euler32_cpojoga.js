@@ -30,7 +30,7 @@ We can get the 9 digit pandigital and unusual product only in this 4 combination
 1.  1d x 4d = 4d (Maximum product to get a 4 digit number: 1 x 9876, or 8 x 1234 )
 2.  2d x 3d = 4d (Maximum product to get a 4 digit number: 12 x 832 or 79 x 123 )
 
-We will ignore the next iterations because we are looking to get unique products. We already have this products from the first 2 iterations
+We will ignore the next iterations because we are looking to get unique products. We already have these products from the first 2 iterations
 3.  3d x 2d = 4d
 4.  4d x 1d = 4d
 
