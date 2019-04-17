@@ -6,7 +6,7 @@ import java.util.stream.Stream;
 /*
 
 Well, I'm not sure how to find the max value of a and b.
-I tried some tests on papers and it didn't work, so I took two arbitrary values (1000) and it returned the correct
+I made some tests on paper and it didn't work, so I took two arbitrary values (1000) and it returned the correct
 result. Kind of not happy with that, but I don't really have time...
 
 */
