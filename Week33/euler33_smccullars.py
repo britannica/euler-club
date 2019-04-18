@@ -20,31 +20,31 @@ def simplify_fraction(numerator, denominator):
 curious_fractions = []
 
 # we want all two digit numerators
-for numerator in range(10,100):
+for num in range(10,100):
     # we want a two digit denominator, but it must be larger
     # than the numerator for the fraction to be less than 1
-    for denominator in range(numerator+1,100):
+    for denom in range(num+1,100):
         # if the numerator and denominator share no digits
         # we can ignore this fraction
-        shared_digit = find_nontrivial_shared_digit(numerator, denominator)
+        shared_digit = find_nontrivial_shared_digit(num, denom)
         if shared_digit:
-            numerator_without_shared_digit = int(str(numerator).replace(shared_digit, '', 1))
-            denominator_without_shared_digit = int(str(denominator).replace(shared_digit, '', 1))
+            num_without_shared_digit = int(str(num).replace(shared_digit, '', 1))
+            denom_without_shared_digit = int(str(denom).replace(shared_digit, '', 1))
             # prevent divide by zero errors
-            if denominator_without_shared_digit != 0:
-                simplified_fraction = simplify_fraction(numerator, denominator)
-                possibly_same_simplified_fraction = simplify_fraction(numerator_without_shared_digit, denominator_without_shared_digit)
-                if simplified_fraction == possibly_same_simplified_fraction:
+            if denom_without_shared_digit != 0:
+                simplified_fraction = simplify_fraction(num, denom)
+                candidate_fraction = simplify_fraction(num_without_shared_digit, denom_without_shared_digit)
+                if simplified_fraction == candidate_fraction:
                     curious_fractions.append(simplified_fraction)
 
-numerator_product = 1
-denominator_product = 1
+num_product = 1
+denom_product = 1
 
 for fraction in curious_fractions:
-    numerator_product *= fraction[0]
-    denominator_product *= fraction[1]
+    num_product *= fraction[0]
+    denom_product *= fraction[1]
 
-print(simplify_fraction(numerator_product, denominator_product)[1])
+print(simplify_fraction(num_product, denom_product)[1])
 
 # --------------------------------------
 # TLDR
