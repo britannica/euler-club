@@ -1,50 +1,61 @@
-def find_nontrivial_shared_digit(a, b):
-    for x in str(a):
-        for y in str(b):
-            if x == y and x != '0':
-                return x
-    return None
+class Fraction:
+    def __init__(self, numerator, denominator):
+        self.numerator = numerator
+        self.denominator = denominator
 
-def simplify_fraction(num, denom):
-    # check for a common prime factor -- since we are only
-    # interested in two digit numbers, we can stop checking
-    # when x*n > 99 (where x and n is prime).  if x == 2
-    # (aka the smallest prime), n is 47
-    for p in (2,3,5,7,11,13,17,19,23,29,31,37,41,43,47):
-        if num % p == 0 and denom % p == 0:
-            return simplify_fraction(int(num/p), int(denom/p))
-    return (num, denom)
+    def __eq__(self, other):
+        return self.numerator == other.numerator and self.denominator == other.denominator
 
+    def __str__(self):
+        return '{}/{}'.format(self.numerator, self.denominator)
+
+    def simplify(self):
+        # check for a common prime factor -- since we are only interested in two digit numbers, 
+        # we can stop checking when x * n > 99 (where x and n is prime).  if x == 2 (aka the 
+        # smallest prime), n cannot be more than 47.
+        for p in (2,3,5,7,11,13,17,19,23,29,31,37,41,43,47):
+            if self.numerator % p == 0 and self.denominator % p == 0:
+                simpler_fraction = Fraction(int(self.numerator/p), int(self.denominator/p))
+                return simpler_fraction.simplify()
+        return self
+
+    # bad simplification means "transform the fraction's numerator and denominator into strings,
+    # find a shared digit, remove the shared digit from those strings, and then use those strings
+    # to make a new fraction"
+    def bad_simplify(self):
+        for x in str(self.numerator):
+            for y in str(self.denominator):
+                if x == y and x != '0':
+                    digit_cancelled_numerator = int(str(self.numerator).replace(x, '', 1))
+                    digit_cancelled_denominator = int(str(self.denominator).replace(x, '', 1))
+                    return Fraction(digit_cancelled_numerator, digit_cancelled_denominator)
+        return None
 
 
 curious_fractions = []
 
 # we want all two digit numerators
-for num in range(10,100):
-    # we want a two digit denominator, but it must be larger
-    # than the numerator for the fraction to be less than 1
-    for denom in range(num+1,100):
-        # if the numerator and denominator share no digits
-        # we can ignore this fraction
-        shared_digit = find_nontrivial_shared_digit(num, denom)
-        if shared_digit:
-            num_without_shared_digit = int(str(num).replace(shared_digit, '', 1))
-            denom_without_shared_digit = int(str(denom).replace(shared_digit, '', 1))
-            # prevent divide by zero errors
-            if denom_without_shared_digit != 0:
-                simplified_fraction = simplify_fraction(num, denom)
-                candidate_fraction = simplify_fraction(num_without_shared_digit, denom_without_shared_digit)
-                if simplified_fraction == candidate_fraction:
-                    curious_fractions.append(simplified_fraction)
+for numerator in range(10, 100):
+    # we want a two digit denominator, but it must be larger than the numerator for the 
+    # fraction to be less than 1
+    for denominator in range(numerator+1, 100):
+        raw_fraction = Fraction(numerator, denominator)
+        mangled_fraction = raw_fraction.bad_simplify()
+        # prevent divide by zero errors
+        if mangled_fraction and mangled_fraction.denominator != 0:
+            if raw_fraction.simplify() == mangled_fraction.simplify():
+                    curious_fractions.append(raw_fraction)
 
-num_product = 1
-denom_product = 1
+numerator_product = 1
+denominator_product = 1
 
 for fraction in curious_fractions:
-    num_product *= fraction[0]
-    denom_product *= fraction[1]
+    numerator_product *= fraction.numerator
+    denominator_product *= fraction.denominator
 
-print(simplify_fraction(num_product, denom_product)[1])
+solution_fraction = Fraction(numerator_product, denominator_product)
+
+print(solution_fraction.simplify().denominator)
 
 # --------------------------------------
 # TLDR
