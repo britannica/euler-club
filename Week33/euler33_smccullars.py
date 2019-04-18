@@ -5,15 +5,15 @@ def find_nontrivial_shared_digit(a, b):
                 return x
     return None
 
-def simplify_fraction(numerator, denominator):
+def simplify_fraction(num, denom):
     # check for a common prime factor -- since we are only
     # interested in two digit numbers, we can stop checking
     # when x*n > 99 (where x and n is prime).  if x == 2
     # (aka the smallest prime), n is 47
     for p in (2,3,5,7,11,13,17,19,23,29,31,37,41,43,47):
-        if numerator % p == 0 and denominator % p == 0:
-            return simplify_fraction(int(numerator/p), int(denominator/p))
-    return (numerator, denominator)
+        if num % p == 0 and denom % p == 0:
+            return simplify_fraction(int(num/p), int(denom/p))
+    return (num, denom)
 
 
 
