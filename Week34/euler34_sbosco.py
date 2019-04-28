@@ -15,7 +15,7 @@ facs[7] = 5040
 facs[8] = 40320
 facs[9] = 362880
 
-upper_limit = 3265920  #9!*9
+upper_limit = 2540160  #9!*7
 sumtot = 0
 
 for n in range(3,upper_limit+1):  
@@ -36,7 +36,7 @@ print('\ntime={0}'.format(elapsed))
 
 #found=145
 #found=40585
-#
+
 #total=40730
-#
-#time=20.6429998875
+
+#time=15.8999998569
