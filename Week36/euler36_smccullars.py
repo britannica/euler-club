@@ -4,10 +4,10 @@ def is_palindrome(x):
             return False
     return True
 
-total = 0
+palindromes = []
 
 for x in range(1, 1000000):
     if is_palindrome(str(x)) and is_palindrome(str('{0:b}'.format(x))):
-        total += x
+        palindromes.append(x)
 
-print(total)
+print(sum(palindromes))
