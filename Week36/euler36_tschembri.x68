@@ -3,6 +3,9 @@
 * Can be tested with Easy68K (windows only):
 * http://www.easy68k.com/
 * trap #15 calls are easy68K specific
+
+* optimization! last bit of even number is 0, so we can skip
+* all even numbers
 *-----------------------------------------------------------
 
         ORG    $1000
@@ -14,7 +17,7 @@ START:
 ; ------------
 
 
-        move.l  #1000000,d6 ; counter
+        move.l  #999999,d6  ; counter
         clr.l   d7          ; sum = 0
                                 
 find_pal:
@@ -36,8 +39,8 @@ find_pal:
         add.l   d6,d7       ; add number to sum    
     
 not_pal: 
-        subq.l  #1,d6       ; loop - 1
-        bne     find_pal    ; if > 0 then loop
+        subq.2  #1,d6       ; loop - 2
+        bgt.s   find_pal    ; if > 0 then loop
         
         lea     result,a1   ; display result
         bsr     disp_string
