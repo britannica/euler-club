@@ -17,26 +17,23 @@ for x in range(2,MAX_PRIME):
 primes = set(n for n,is_prime in enumerate(sieve) if is_prime)
 
 
-def is_truncatable(p, direction):
-    if p in primes:
-        if len(str(p)) > 1:
-            if direction == 'both':
-                return is_truncatable(int(str(p)[1:]), 'left') and is_truncatable(int(str(p)[:-1]), 'right')
-            elif direction == 'left':
-                return is_truncatable(int(str(p)[1:]), direction)
-            elif direction == 'right':
-                return is_truncatable(int(str(p)[:-1]), direction)
-        else:
-            return True
-    return False
+def truncate(d, reverse=False):
+    return int(str(d)[:-1]) if reverse else int(str(d)[1:])
 
+def is_truncatable(p, reverse=False):
+    if p not in primes:
+        return False
+    if len(str(p)) == 1:
+        return True
+    return is_truncatable(truncate(p, reverse=reverse), reverse=reverse)
 
 truncatable_primes = []
 
 for prime in sorted(list(primes)):
-    if prime > 7 and is_truncatable(prime, 'both'):
+    if prime > 7 and is_truncatable(prime) and is_truncatable(prime, reverse=True):
         truncatable_primes.append(prime)
         
     if len(truncatable_primes) == 11:
-        print(sum(truncatable_primes))
         break
+
+print(sum(truncatable_primes))
