@@ -31,7 +31,7 @@ while (res.length <= 10) {
     if (isTruncablePrime(n)) 
         res.push(n);
     
-    n += 2;
+    n += 1;
 }
 
 console.log(res.reduce((a, b) => a + b), res);
