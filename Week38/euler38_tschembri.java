@@ -3,12 +3,9 @@ Euler 38 in Java
 We stop at 9999 because concatenating two 5 digit numbers will give a 10 digit number (which can't be pandigital)
 */
 
-import java.time.Duration;
-import java.time.Instant;
+import java.time.*;
 import java.util.*;
-import java.util.stream.Collectors;
-import java.util.stream.IntStream;
-import java.util.stream.Stream;
+import java.util.stream.*;
 
 public class Euler {
 
