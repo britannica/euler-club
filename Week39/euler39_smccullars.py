@@ -19,7 +19,7 @@ solutions = {}
 for p in range(3, 1000):
     for a in range(1, p):
         b = (p**2-(2*p*a))/(2*(p-a))
-        if int(b) == b and b > 0 and a <= b:
+        if int(b) == b and a <= b:
             c = sqrt(a**2+b**2)
             if a+b+c == p:
                 if p in solutions:
