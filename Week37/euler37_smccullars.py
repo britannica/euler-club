@@ -1,3 +1,5 @@
+####### begin sieve generation of primes #######
+
 MAX_PRIME = 1000000
 
 # initialize sieve
@@ -16,6 +18,7 @@ for x in range(2,MAX_PRIME):
 # turn the sieve into an ordered (ascending) list of primes for convenience
 primes = set(n for n,is_prime in enumerate(sieve) if is_prime)
 
+####### end sieve generation of primes #######
 
 def truncate(d, reverse=False):
     return int(str(d)[:-1]) if reverse else int(str(d)[1:])
