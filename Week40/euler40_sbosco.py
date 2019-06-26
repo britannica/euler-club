@@ -17,10 +17,6 @@ print('d10000  = {}'.format(digits[9999]))
 print('d100000 = {}'.format(digits[99999]))
 print('\nproduct = {}'.format(int(digits[0])*int(digits[9])*int(digits[99])*int(digits[999])*int(digits[9999])*int(digits[99999])))
 
-
-
-#print('\nperimeter sum with the most solutions ({}) = {}'.format(perimeters[most_solutions], most_solutions))
-
 t1 = time.time()
 elapsed = t1 - t0
 print('\ntime={}'.format(elapsed))
